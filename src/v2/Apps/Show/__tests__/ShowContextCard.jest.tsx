@@ -1,32 +1,25 @@
 import { MockBoot } from "v2/DevTools"
 import { Breakpoint } from "@artsy/palette"
 import React from "react"
-import { ShowArtworksRefetchContainer } from "../Components/ShowArtworks"
+import { ShowContextCardFragmentContainer } from "../Components/ShowContextCard"
 import { QueryRenderer, graphql } from "react-relay"
-import { ShowArtworks_Query } from "v2/__generated__/ShowArtworks_Query.graphql"
+import { ShowContextCard_Test_Query } from "v2/__generated__/ShowContextCard_Test_Query.graphql"
 import { MockPayloadGenerator, createMockEnvironment } from "relay-test-utils"
 import { mount } from "enzyme"
 
 jest.unmock("react-relay")
-jest.mock("v2/Artsy/Router/useRouter", () => ({
-  useRouter: () => ({
-    match: {
-      location: { query: {} },
-    },
-  }),
-}))
 
-describe("ShowArtworks", () => {
+describe("ShowContextCard", () => {
   let env = createMockEnvironment() as ReturnType<typeof createMockEnvironment>
 
   const getWrapper = (breakpoint = "xs") => {
     const TestRenderer = () => (
-      <QueryRenderer<ShowArtworks_Query>
+      <QueryRenderer<ShowContextCard_Test_Query>
         environment={env}
         query={graphql`
-          query ShowArtworks_Query($slug: String!) {
+          query ShowContextCard_Test_Query($slug: String!) {
             show(id: $slug) {
-              ...ShowArtworks_show
+              ...ShowContextCard_show
             }
           }
         `}
@@ -35,7 +28,7 @@ describe("ShowArtworks", () => {
           if (props?.show) {
             return (
               <MockBoot breakpoint={breakpoint as Breakpoint}>
-                <ShowArtworksRefetchContainer show={props.show} />
+                <ShowContextCardFragmentContainer show={props.show} />
               </MockBoot>
             )
           } else if (error) {
@@ -47,7 +40,13 @@ describe("ShowArtworks", () => {
 
     const wrapper = mount(<TestRenderer />)
     env.mock.resolveMostRecentOperation(operation =>
-      MockPayloadGenerator.generate(operation)
+      MockPayloadGenerator.generate(operation, {
+        Fair: () => {
+          return {
+            name: "Catty Art Fair",
+          }
+        },
+      })
     )
     wrapper.update()
     return wrapper
@@ -61,9 +60,8 @@ describe("ShowArtworks", () => {
     jest.clearAllMocks()
   })
 
-  it("renders correctly", async () => {
-    const wrapper = await getWrapper()
-    expect(wrapper.find("ArtworkFilterArtworkGrid").length).toBe(1)
-    expect(wrapper.find("GridItem__ArtworkGridItem").length).toBe(1)
+  it("renders correctly", () => {
+    const wrapper = getWrapper()
+    expect(wrapper.text()).toContain("Part of Catty Art Fair")
   })
 })

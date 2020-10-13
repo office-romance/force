@@ -6,14 +6,16 @@ import { HorizontalPadding } from "v2/Apps/Components/HorizontalPadding"
 import { Footer } from "v2/Components/Footer"
 import { ErrorPage } from "v2/Components/ErrorPage"
 import { Box, Column, GridColumns, Separator } from "@artsy/palette"
-import { ShowMetaFragmentContainer as ShowMeta } from "v2/Apps/Show/components/ShowMeta"
-import { ShowHeaderFragmentContainer as ShowHeader } from "./components/ShowHeader"
-import { ShowAboutFragmentContainer as ShowAbout } from "./components/ShowAbout"
-import { ShowInstallShotsFragmentContainer as ShowInstallShots } from "./components/ShowInstallShots"
-import { ShowContextualLinkFragmentContainer as ShowContextualLink } from "./components/ShowContextualLink"
-import { ShowViewingRoom } from "./components/ShowViewingRoom"
+import { ShowMetaFragmentContainer as ShowMeta } from "v2/Apps/Show/Components/ShowMeta"
+import { ShowHeaderFragmentContainer as ShowHeader } from "./Components/ShowHeader"
+import { ShowAboutFragmentContainer as ShowAbout } from "./Components/ShowAbout"
+import { ShowInstallShotsFragmentContainer as ShowInstallShots } from "./Components/ShowInstallShots"
+import { ShowContextualLinkFragmentContainer as ShowContextualLink } from "./Components/ShowContextualLink"
+import { ShowViewingRoom } from "./Components/ShowViewingRoom"
 import { ShowApp_show } from "v2/__generated__/ShowApp_show.graphql"
-import { ShowArtworksRefetchContainer as ShowArtworks } from "./components/ShowArtworks"
+import { ShowArtworksRefetchContainer as ShowArtworks } from "./Components/ShowArtworks"
+import { ForwardLink } from "v2/Components/Links/ForwardLink"
+import { ShowContextCardFragmentContainer as ShowContextCard } from "./Components/ShowContextCard"
 
 interface ShowAppProps {
   show: ShowApp_show
@@ -33,7 +35,7 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
   if (!show) return <ErrorPage code={404} />
 
   const hasViewingRoom = false // TODO
-  const hasAbout = !!show.about || !!show.pressRelease
+  const hasAbout = !!show.about
   const hasWideHeader =
     (hasAbout && hasViewingRoom) || (!hasAbout && !hasViewingRoom)
 
@@ -53,11 +55,27 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
           <GridColumns>
             <Column span={hasWideHeader ? [12, 8, 6] : 6} wrap={hasWideHeader}>
               <ShowHeader show={show} />
+
+              {!hasAbout && (
+                <ForwardLink
+                  to={`${show.href.replace("/show", "/show2")}/info`}
+                  mt={1}
+                >
+                  More info
+                </ForwardLink>
+              )}
             </Column>
 
             {hasAbout && (
               <Column span={6}>
                 <ShowAbout show={show} />
+
+                <ForwardLink
+                  to={`${show.href.replace("/show", "/show2")}/info`}
+                  mt={2}
+                >
+                  More info
+                </ForwardLink>
               </Column>
             )}
 
@@ -68,11 +86,17 @@ export const ShowApp: React.FC<ShowAppProps> = ({ show }) => {
             )}
           </GridColumns>
 
-          <Separator as="hr" my={3} />
-
-          <ShowArtworks show={show} />
+          <ShowArtworks show={show} my={3} />
 
           <Separator as="hr" my={3} />
+
+          {show.isFairBooth && (
+            <>
+              <ShowContextCard show={show} />
+
+              <Separator as="hr" my={3} />
+            </>
+          )}
 
           <Footer />
         </HorizontalPadding>
@@ -102,8 +126,8 @@ export default createFragmentContainer(ShowApp, {
         sort: { type: "String", defaultValue: "-decayed_merch" }
       ) {
       name
+      href
       about: description
-      pressRelease
       ...ShowContextualLink_show
       ...ShowHeader_show
       ...ShowAbout_show
@@ -126,6 +150,8 @@ export default createFragmentContainer(ShowApp, {
           sizes: $sizes
           sort: $sort
         )
+      isFairBooth
+      ...ShowContextCard_show
     }
   `,
 })

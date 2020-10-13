@@ -5,9 +5,10 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ShowApp_show = {
     readonly name: string | null;
+    readonly href: string | null;
     readonly about: string | null;
-    readonly pressRelease: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"ShowContextualLink_show" | "ShowHeader_show" | "ShowAbout_show" | "ShowMeta_show" | "ShowInstallShots_show" | "ShowArtworks_show">;
+    readonly isFairBooth: boolean | null;
+    readonly " $fragmentRefs": FragmentRefs<"ShowContextualLink_show" | "ShowHeader_show" | "ShowAbout_show" | "ShowMeta_show" | "ShowInstallShots_show" | "ShowArtworks_show" | "ShowContextCard_show">;
     readonly " $refType": "ShowApp_show";
 };
 export type ShowApp_show$data = ShowApp_show;
@@ -117,6 +118,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "href",
+      "storageKey": null
+    },
+    {
       "alias": "about",
       "args": null,
       "kind": "ScalarField",
@@ -127,7 +135,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "pressRelease",
+      "name": "isFairBooth",
       "storageKey": null
     },
     {
@@ -230,9 +238,14 @@ const node: ReaderFragment = {
       ],
       "kind": "FragmentSpread",
       "name": "ShowArtworks_show"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ShowContextCard_show"
     }
   ],
   "type": "Show"
 };
-(node as any).hash = '8a8c365bcf78731ae0be88369ffef7c6';
+(node as any).hash = '5322f51a90080340da4f33fc85285043';
 export default node;
