@@ -8,12 +8,7 @@ import express from "express"
 
 // This export form is required for express-reloadable
 const app = express()
-module.exports = app;
-
-app.use('/novo', (res, req, next) => {
-  console.log('novo')
-  next()
-})
+module.exports = app
 
 app.get("/novo", (req, res) => {
   res.send(`
@@ -74,9 +69,15 @@ app.get(
           <body>
             <script src="${asset("/assets-novo/novo-runtime.js")}"></script>
             <script src="${asset("/assets-novo/novo-common.js")}"></script>
-            <script src="${asset("/assets-novo/novo-artsy-common.js")}"></script>
-            <script src="${asset("/assets-novo/novo-common-react.js")}"></script>
-            <script src="${asset("/assets-novo/novo-common-utility.js")}"></script>
+            <script src="${asset(
+              "/assets-novo/novo-artsy-common.js"
+            )}"></script>
+            <script src="${asset(
+              "/assets-novo/novo-common-react.js"
+            )}"></script>
+            <script src="${asset(
+              "/assets-novo/novo-common-utility.js"
+            )}"></script>
             <script src="${asset("/assets-novo/novo-artsy.js")}"></script>
 
             <div id='react-root'>
