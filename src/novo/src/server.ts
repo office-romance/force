@@ -72,19 +72,19 @@ app.get(
             ${sharifyData}
           </head>
           <body>
-            <script src="${asset("/assets/novo-runtime.js")}"></script>
-            <script src="${asset("/assets/novo-common.js")}"></script>
-            <script src="${asset("/assets/novo-artsy-common.js")}"></script>
-            <script src="${asset("/assets/novo-common-react.js")}"></script>
-            <script src="${asset("/assets/novo-common-utility.js")}"></script>
-            <script src="${asset("/assets/novo-artsy.js")}"></script>
+            <script src="${asset("/assets-novo/novo-runtime.js")}"></script>
+            <script src="${asset("/assets-novo/novo-common.js")}"></script>
+            <script src="${asset("/assets-novo/novo-artsy-common.js")}"></script>
+            <script src="${asset("/assets-novo/novo-common-react.js")}"></script>
+            <script src="${asset("/assets-novo/novo-common-utility.js")}"></script>
+            <script src="${asset("/assets-novo/novo-artsy.js")}"></script>
 
             <div id='react-root'>
             ${bodyHTML}
             </div>
 
             ${scripts}
-            <script src="${asset("/assets/novo-artsy-novo.js")}"></script>
+            <script src="${asset("/assets-novo/novo-artsy-novo.js")}"></script>
           </body>
         </html>
       `)

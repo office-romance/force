@@ -53,6 +53,7 @@ function swapBackboneSync() {
   }
 }
 
+// TODO: Should we still hold off the server spin up until after the cache is loaded?
 // Connect to Redis
 initCache(() => {
   swapBackboneSync()

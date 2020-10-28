@@ -12,7 +12,7 @@ const WebpackManifestPlugin = require("webpack-manifest-plugin")
 export const clientNovoProductionConfig = {
   stats: "normal",
   parallelism: 100,
-  mode: "production",
+  mode: env.webpackDebug ? "development" : env.nodeEnv,
   devtool: "source-map",
   entry: {
     "artsy-novo": [
@@ -21,8 +21,8 @@ export const clientNovoProductionConfig = {
   },
   output: {
     filename: "novo-[name].js",
-    path: path.resolve(basePath, "public/assets"),
-    publicPath: "/assets/",
+    path: path.resolve(basePath, "public/assets-novo"),
+    publicPath: "/assets-novo/",
   },
   module: {
     rules: [
@@ -116,7 +116,7 @@ export const clientNovoProductionConfig = {
     new HashedModuleIdsPlugin(),
     new WebpackManifestPlugin({
       fileName: path.resolve(basePath, "manifest-novo.json"),
-      basePath: "/assets/",
+      basePath: "/assets-novo/",
       seed: env.isProduction ? getCSSManifest() : {},
     }),
   ],
@@ -157,7 +157,6 @@ export const clientNovoProductionConfig = {
     ],
     splitChunks: {
       maxInitialRequests: Infinity,
-      // chunks: "all",
       cacheGroups: {
         artsy: {
           test: /.*node_modules[\\/](@artsy)[\\/]/,

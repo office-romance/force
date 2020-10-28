@@ -15,7 +15,7 @@
     "bundle-report:assets": "NODE_ENV=production WEBPACK_ANALYZE=true yarn build:assets",
     "bundle-report:assets:novo": "NODE_ENV=production WEBPACK_ANALYZE=true yarn build:assets:novo",
     "bundle-report:server": "NODE_ENV=production WEBPACK_ANALYZE=true yarn build:server",
-    "clean": "rm -rf .cache && rm -f manifest.json && rm -f manifest-novo.json && rm -rf public/assets && mkdir -p public/assets && echo '[Force] Cleaned build directory'",
+    "clean": "rm -rf .cache && rm -f manifest.json && rm -f manifest-novo.json && rm -rf public/assets && rm -rf public/assets-novo && echo '[Force] Cleaned build directory'",
     "compile": "babel src/v2 --out-dir dist/v2 -s --source-map --extensions '.js,.jsx,.ts,.tsx' --ignore src/v2/**/__tests__",
     "cypress:run": "./node_modules/.bin/cypress run",
     "cypress": "./node_modules/.bin/cypress open",

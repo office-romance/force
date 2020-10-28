@@ -9,11 +9,6 @@ import "regenerator-runtime/runtime"
 // See https://docs.datadoghq.com/tracing/languages/nodejs/ for more info.
 import "./lib/datadog"
 
-// TODO: Do we need JSDOM server-side?
-import "./lib/DOMParser"
-
-// TODO: Publish artsy morgan as an npm module.
-import logger from "artsy-morgan"
 import express from "express"
 
 const {
@@ -81,3 +76,5 @@ app.listen(5000, () => {
 //     process.on("SIGTERM", stopServer)
 //   }
 // })
+
+module.exports = app
