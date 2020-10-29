@@ -8,6 +8,7 @@ const path = require("path")
 const TerserPlugin = require("terser-webpack-plugin")
 const webpack = require("webpack")
 const WebpackManifestPlugin = require("webpack-manifest-plugin")
+const LoadablePlugin = require("@loadable/webpack-plugin")
 
 export const clientNovoProductionConfig = {
   stats: "normal",
@@ -15,9 +16,7 @@ export const clientNovoProductionConfig = {
   mode: env.webpackDebug ? "development" : env.nodeEnv,
   devtool: "source-map",
   entry: {
-    "artsy-novo": [
-      path.resolve(process.cwd(), "src/novo/src/client.tsx"),
-    ],
+    "artsy-novo": [path.resolve(process.cwd(), "src/novo/src/client.tsx")],
   },
   output: {
     filename: "novo-[name].js",
@@ -112,6 +111,10 @@ export const clientNovoProductionConfig = {
       cacheBust: `function() {
         return "cache-bust=" + Date.now();
       }`,
+    }),
+    new LoadablePlugin({
+      filename: "loadable-novo-stats.json",
+      path: path.resolve(basePath, "public", "assets-novo"),
     }),
     new HashedModuleIdsPlugin(),
     new WebpackManifestPlugin({

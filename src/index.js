@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // TODO: Do we still need this.
-import 'source-map-support/register'
+import "source-map-support/register"
 
 // Do we still use regenerator?
 import "regenerator-runtime/runtime"
@@ -11,23 +11,9 @@ import "./lib/datadog"
 
 import express from "express"
 
-const {
-  NODE_ENV,
-} = process.env
-
-const isDevelopment = NODE_ENV === "development"
-
 const app = express()
 
-// TODO: Refactor dev server to exist in index.dev.js
-if (isDevelopment) {
-  app.use(require("./lib/webpack-dev-server").app)
-
-  const mountAndReload = createReloadable(novo, require)
-  mountAndReload(path.resolve("src/common-app"))
-} else {
-  app.use(require("./common-app"))
-}
+app.use(require("./common-app"))
 
 app.listen(5000, () => {
   const bootMessage = true

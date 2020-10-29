@@ -43,12 +43,17 @@ app.get(
         redirect,
         bodyHTML,
         headTags,
-      } = await buildServerApp({
-        req,
-        res,
-        context: buildServerAppContext(req, res),
-        routes,
-      })
+      } = await buildServerApp(
+        {
+          req,
+          res,
+          context: buildServerAppContext(req, res),
+          routes,
+        },
+        "loadable-novo-stats.json",
+        "public/assets-novo",
+        "/assets-novo"
+      )
 
       if (redirect) {
         res.redirect(status ?? 302, redirect.url)
