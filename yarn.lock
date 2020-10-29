@@ -22,10 +22,10 @@
     qs "5.2.0"
     underscore "*"
 
-"@artsy/cohesion@1.44.0":
-  version "1.44.0"
-  resolved "https://registry.yarnpkg.com/@artsy/cohesion/-/cohesion-1.44.0.tgz#c13ee91ea739af61b817e215a0dba0e8677547dc"
-  integrity sha512-SnKfCojWEIY0YwwP1kREtosH9LsuqkCvx8P6i7qu3LgXLNbuu4okFlIg7rDFRYWMJ3dhU5LmJ3sYX88FMEWg/g==
+"@artsy/cohesion@1.45.0":
+  version "1.45.0"
+  resolved "https://registry.yarnpkg.com/@artsy/cohesion/-/cohesion-1.45.0.tgz#f97ff2237033cf9704e452fb35a50b769dd4ef14"
+  integrity sha512-WH+TiBLuWtA8XITmXv5OJLr0RcT0VXNaXyYE+gur1MEg8c9s1eh9rfpwy8CPYjl1cPOAXyJVZeIMf1vlNsCNyA==
 
 "@artsy/detect-responsive-traits@^0.0.5":
   version "0.0.5"
@@ -58,10 +58,10 @@
   dependencies:
     uuid "^8.3.0"
 
-"@artsy/palette@13.13.0":
-  version "13.13.0"
-  resolved "https://registry.yarnpkg.com/@artsy/palette/-/palette-13.13.0.tgz#7d503eae0db06fe4f2eb95e0b929494be673567d"
-  integrity sha512-mpkIHjrb9YNmb+KWUluQWP4ctQ4wHB6OYVLzpLqjRbhl4DFrHUtiv7gJQilOO6cRRPihhRc5LfG/9va/YlFrGw==
+"@artsy/palette@13.15.0":
+  version "13.15.0"
+  resolved "https://registry.yarnpkg.com/@artsy/palette/-/palette-13.15.0.tgz#968bfb0f836b4d0f021bc701cd8904fcf25dd862"
+  integrity sha512-LKXuqw9tom7hsQ9fm7+/lcuaHAq2XN9mWvH9J1DL9UpMmb7+md6ZwZUAfcxbpRBJMAJ+L5WqrwWtrU8cJrxI1w==
   dependencies:
     "@styled-system/theme-get" "^5.1.2"
     babel-plugin-styled-components "^1.10.0"
