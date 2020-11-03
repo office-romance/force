@@ -44,6 +44,7 @@
     "test:ci:jest:v2": "scripts/jest.sh v2",
     "test:ci:mocha": "yarn mocha $(find src -name '*.test.js')",
     "type-check": "tsc",
+    "type-check:debug": "tsc --extendedDiagnostics --noEmit --incremental false --generateCpuProfile tsc-output.cpuprofile",
     "unlink-all": "yalc remove --all && yarn --check-files",
     "webpack": "node --max_old_space_size=4096 -r dotenv/config -r @babel/register node_modules/.bin/webpack --config ./webpack"
   },
@@ -65,11 +66,11 @@
   },
   "dependencies": {
     "@artsy/backbone-mixins": "2.0.0",
-    "@artsy/cohesion": "1.44.0",
+    "@artsy/cohesion": "1.45.0",
     "@artsy/express-reloadable": "1.4.8",
     "@artsy/fresnel": "1.3.0",
     "@artsy/gemup": "0.1.0",
-    "@artsy/palette": "13.15.0",
+    "@artsy/palette": "13.16.0",
     "@artsy/passport": "1.5.0",
     "@artsy/reaction": "28.11.0",
     "@artsy/stitch": "6.1.6",
