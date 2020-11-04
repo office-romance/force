@@ -40,7 +40,7 @@ import pageCacheMiddleware from "./middleware/pageCacheMiddleware"
 import proxyGravity from "./middleware/proxy_to_gravity"
 import proxyReflection from "./middleware/proxy_to_reflection"
 import sameOriginMiddleware from "./middleware/same_origin"
-import sessionMiddleware from './middleware/sessionMiddleware'
+import sessionMiddleware from "./middleware/sessionMiddleware"
 import splitTestMiddleware from "../desktop/components/split_test/middleware"
 import unsupportedBrowserCheckMiddleware from "./middleware/unsupportedBrowser"
 
@@ -64,7 +64,6 @@ const {
 } = config
 
 export default function (app) {
-
   // Denied IPs
   if (IP_DENYLIST && IP_DENYLIST.length > 0) {
     app.use(ipFilter(IP_DENYLIST))
@@ -80,7 +79,7 @@ export default function (app) {
   // app.use(sharify)
 
   // Static asset routing
-  app.use(assetMiddleware())
+  app.use(/\/((?!novo\/).)* /, assetMiddleware())
 
   // Error reporting
   if (SENTRY_PRIVATE_DSN) {
