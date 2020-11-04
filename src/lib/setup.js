@@ -79,7 +79,7 @@ export default function (app) {
   // app.use(sharify)
 
   // Static asset routing
-  app.use(/\/((?!novo\/).)* /, assetMiddleware())
+  app.use(/^\/(?!novo).*/, assetMiddleware())
 
   // Error reporting
   if (SENTRY_PRIVATE_DSN) {
