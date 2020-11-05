@@ -2,12 +2,11 @@
 // TODO: Find a way to remove JSDOM from our server.
 import "./lib/DOMParser"
 
-// TODO: Publish artsy morgan as an npm module.
-import logger from "artsy-morgan"
 import express from "express"
 import RavenServer from "raven"
 import commonMiddlewareSetup from "./common-middleware"
 import errorHandlingMiddleware from "./lib/middleware/error_handler"
+import morganMiddleware from "./lib/middleware/morganMiddleware"
 import config from "./config"
 
 const { SENTRY_PRIVATE_DSN } = config
@@ -17,8 +16,12 @@ const app = express()
 app.set("trust proxy", true)
 
 // Log all routes
-// TODO: Disable asset route logging.
-app.use(logger)
+app.use(
+  morganMiddleware({
+    development: process.env.NODE_ENV === "development",
+    logAssets: process.env.LOG_ASSETS === "true",
+  })
+)
 
 // *****************************************************************************
 // Install common middlewares
