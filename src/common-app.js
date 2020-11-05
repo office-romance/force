@@ -31,7 +31,7 @@ commonMiddlewareSetup(app)
 // See: https://github.com/artsy/microgravity-private/pull/1138
 // Does this need to come before middleware?
 // *****************************************************************************
-app.use(require("desktop/apps/blank"))
+app.use(require("./desktop/apps/blank"))
 
 // *****************************************************************************
 // Health Check
