@@ -9,9 +9,7 @@ import express from "express"
 
 const novoManifest = loadAssetManifest("manifest-novo.json")
 
-// This export form is required for express-reloadable
 const app = express()
-module.exports = app
 
 app.get("/novo", (req, res) => {
   res.send(`
@@ -133,3 +131,6 @@ function getRoutePaths() {
   )
   return flatRoutes
 }
+
+// This export form is required for express-reloadable
+module.exports = app
