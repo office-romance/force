@@ -10,32 +10,38 @@ import {
   Separator,
   Spacer,
   Text,
+  color,
 } from "@artsy/palette"
 import styled from "styled-components"
 
 export const ArtistInsightResult: React.FC = () => {
-  const { artistInsights, selectedSuggestion } = usePriceEstimateContext()
+  const {
+    artistInsights,
+    isFetching,
+    selectedSuggestion,
+  } = usePriceEstimateContext()
 
-  if (!artistInsights?.marketPriceInsights) {
+  if (isFetching) {
+    return <LoadingPlaceholder />
+  }
+
+  if (!artistInsights?.priceInsights?.edges?.[0]?.node) {
     return <ZeroState />
   }
 
+  const { node } = artistInsights.priceInsights.edges[0]
+
   // TODO: Look into why we need to coerce these types from mp
-  const lowRangeCents: number = Number(
-    artistInsights.marketPriceInsights.lowRangeCents
-  )
-  const midRangeCents: number = Number(
-    artistInsights.marketPriceInsights.midRangeCents
-  )
-  const highRangeCents: number = Number(
-    artistInsights.marketPriceInsights.highRangeCents
-  )
+  const lowRangeCents: number = Number(node.lowRangeCents)
+  const midRangeCents: number = Number(node.midRangeCents)
+  const highRangeCents: number = Number(node.highRangeCents)
 
   const lowEstimateDollars = formatCentsToDollars(lowRangeCents)
   const highEstimateDollars = formatCentsToDollars(highRangeCents)
   const medianEstimateDollars = formatCentsToDollars(midRangeCents)
 
   const imageUrl = selectedSuggestion?.node?.imageUrl
+  const { artistName } = node
 
   return (
     <Box>
@@ -45,9 +51,7 @@ export const ArtistInsightResult: React.FC = () => {
             <Image src={imageUrl} width={120} height={120} />
           </Box>
           <Box>
-            <Text variant="largeTitle">
-              {artistInsights.marketPriceInsights.artistName}
-            </Text>
+            <Text variant="largeTitle">{artistName}</Text>
             <Separator mt={0.5} mb={2} />
             <Text variant="small" color="black60">
               Price estimate
@@ -126,3 +130,21 @@ const Container = styled(Box).attrs({
   background: white;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 `
+
+const PlaceholderText = styled(Box)`
+  background-color: ${color("black10")};
+  height: 20px;
+  width: 75%;
+  margin-bottom: 10px;
+`
+
+const LoadingPlaceholder: React.FC = () => {
+  return (
+    <Container>
+      <Box mb={2} height="80px" width="80px" bg="black10" />
+      <PlaceholderText />
+      <PlaceholderText />
+      <PlaceholderText />
+    </Container>
+  )
+}
